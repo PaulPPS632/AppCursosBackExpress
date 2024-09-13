@@ -1,6 +1,7 @@
 import Posts from "../models/Posts.js";
 import ScreenPosts from "../models/ScreenPosts.js";
 import TipoPosts from "../models/TipoPosts.js";
+import uploadImage from "./uploadimage.js";
 import { paginate } from "./paginate.js";
 class PostsController {
   async GetAll(req, res) {
@@ -18,10 +19,20 @@ class PostsController {
 
     const tipo = await TipoPosts.findOne({ where: { id: Tipoid } });
     if (!tipo) return res.status(400).json({ error: "Tipo no found" });
-    const { title, description, content, url_picture, TipoPostsId } = req.body;
+    const { title, description, content,TipoPostsId } = req.body;
     const fechaActual = new Date().toISOString().split("T")[0];
 
-    console.log(fechaActual);
+    let url_picture = '';
+        if (req.file) {
+            try {
+                // Esperar a que se suba la imagen a Cloudinary y obtener la URL
+                url_picture = await uploadImage(req.file.path);
+                console.log("url_picture:" + url_picture);
+            } catch (error) {
+                console.error("Error al subir la imagen:", error);
+                return res.status(500).json({ error: "Error al subir la imagen" });
+            }
+        }
     const creado = await Posts.create({
       title,
       description,
@@ -39,8 +50,19 @@ class PostsController {
       where: { id: req.body.TipoPostsId },
     });
     if (!tipo) return res.status(400).json({ error: "Tipo no found" });
-    const { title, description, content, url_picture, TipoPostsId } = req.body;
+    const { title, description, content, TipoPostsId } = req.body;
     const fechaActual = new Date().toISOString().split("T")[0];
+    let url_picture = '';
+        if (req.file) {
+            try {
+                // Esperar a que se suba la imagen a Cloudinary y obtener la URL
+                url_picture = await uploadImage(req.file.path);
+                console.log("url_picture:" + url_picture);
+            } catch (error) {
+                console.error("Error al subir la imagen:", error);
+                return res.status(500).json({ error: "Error al subir la imagen" });
+            }
+        }
     const actualizado = await Posts.update(
       {
         title,

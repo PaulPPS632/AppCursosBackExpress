@@ -104,8 +104,19 @@ class ScreenScreenPostsController {
           where: { id: req.body.TipoScreenPostsId },
         });
         if (!tipo) return res.status(400).json({ error: "Tipo no found" });
-        const { title, description, content, url_picture, TipoScreenPostsId } = req.body;
+        const { title, description, content, TipoScreenPostsId } = req.body;
         const fechaActual = new Date().toISOString().split("T")[0];
+        let url_picture = '';
+        if (req.file) {
+            try {
+                // Esperar a que se suba la imagen a Cloudinary y obtener la URL
+                url_picture = await uploadImage(req.file.path);
+                console.log("url_picture:" + url_picture);
+            } catch (error) {
+                console.error("Error al subir la imagen:", error);
+                return res.status(500).json({ error: "Error al subir la imagen" });
+            }
+        }
         const actualizado = await ScreenPosts.update(
           {
             title,
