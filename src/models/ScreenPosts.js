@@ -17,7 +17,7 @@ class ScreenPosts extends Model {
           type: DataTypes.STRING,
         },
         content: {
-          type: DataTypes.JSON,
+          type: DataTypes.TEXT,
         },
         date: {
           type: DataTypes.STRING,

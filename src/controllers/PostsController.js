@@ -94,6 +94,12 @@ class PostsController {
     const screens = await Posts.findAll({include:ScreenPosts, where:{id}});
     return res.status(200).json(screens);
   }
+  async GetFirstScreen(req, res){
+    const id = req.params.id;
+    if (!id) return res.status(400).json({ error: "Se necesita ID de Post" });
+    const screen = await ScreenPosts.findAll({where:{PostsId:id, predecesor: 0 }});
+    return res.status(200).json(screen);
+  }
   async GetScreensPaged(req,res){
     const {id,page, order_by, order_direction,limit} = req.query;
     if (!id) return res.status(400).json({ error: "Se necesita ID de Post" });

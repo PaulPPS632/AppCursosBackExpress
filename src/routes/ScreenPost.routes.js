@@ -14,7 +14,7 @@ const upload = multer({ storage });
 
 ScreenPostsRoutes.get("/", ScreenPostsController.GetAll);
 ScreenPostsRoutes.get("/:id", ScreenPostsController.GetById);
-ScreenPostsRoutes.post("/", upload.single('image'), ScreenPostsController.create);
+ScreenPostsRoutes.post("/", ScreenPostsController.create);
 ScreenPostsRoutes.put("/:id", upload.single('image'), ScreenPostsController.update);
 ScreenPostsRoutes.delete("/:id", ScreenPostsController.delete);
 

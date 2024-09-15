@@ -11,6 +11,7 @@ const upload = multer({ storage });
 PostsRoutes.get('/', PostController.GetAll);
 PostsRoutes.get('/:id', PostController.GetById);
 PostsRoutes.get('/Screens/:id', PostController.GetScreens);
+PostsRoutes.get('/FirstScreen/:id', PostController.GetFirstScreen);
 PostsRoutes.post('/', upload.single('image'), PostController.create);
 PostsRoutes.put('/:id', upload.single('image'), PostController.update);
 PostsRoutes.delete('/:id', PostController.delete);

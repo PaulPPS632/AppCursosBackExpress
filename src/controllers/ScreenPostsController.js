@@ -42,6 +42,7 @@ class ScreenScreenPostsController {
         //const file = req.file.image;
         //const url_picture = uploadImage(file.tempFilePath);
         let url_picture = '';
+        /* 
         if (req.file) {
             try {
                 // Esperar a que se suba la imagen a Cloudinary y obtener la URL
@@ -51,12 +52,12 @@ class ScreenScreenPostsController {
                 console.error("Error al subir la imagen:", error);
                 return res.status(500).json({ error: "Error al subir la imagen" });
             }
-        }
+        }*/
         //-----------------------
 
-
+        
         try {
-
+            let maxId;
             // Usar una transacción para asegurar que todas las operaciones se completen correctamente
             const result = await ScreenPosts.sequelize.transaction(async (t) => {
             // Buscar el ID máximo existente para el PostsId dado
@@ -67,13 +68,13 @@ class ScreenScreenPostsController {
                 transaction: t
             });
 
-            const maxId = maxRecord ? maxRecord.id : 0;
-
+            maxId = maxRecord ? maxRecord.id : 0;
+            
             // Crear un nuevo registro
             const creado = await ScreenPosts.create({
                 title,
                 description,
-                content: JSON.parse(content),
+                content: content,
                 date: fechaActual,
                 url_picture,
                 PostsId,
@@ -87,10 +88,25 @@ class ScreenScreenPostsController {
                 transaction: t
                 });
             }
-
+            
             return creado;
             });
+            if(maxId == 0){
+              console.log("id primero: "+result.id);
+              const res2 = await Posts.update(
+                {
+                  first_screen: result.id
+                },
+                {
+                  where: {
+                    id: PostsId,
+                  },
+                }
+              );
+              console.log(res2);
+            }
 
+            
             return res.status(200).json(result);
         } catch (error) {
             console.error(error);

@@ -23,6 +23,9 @@ class Posts extends Model {
         },
         url_picture:{
             type:DataTypes.STRING
+        },
+        first_screen:{
+          type: DataTypes.INTEGER
         }
       }, // attributes
       {
