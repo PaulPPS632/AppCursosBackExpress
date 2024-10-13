@@ -11,7 +11,7 @@ class ScreenPosts extends Model {
         },
         title: {
           type: DataTypes.STRING,
-          allowNull: false, // Puedes configurar esto según tus necesidades
+          allowNull: false, 
         },
         description: {
           type: DataTypes.STRING,

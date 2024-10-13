@@ -2,6 +2,7 @@ import { where } from "sequelize";
 import TipoPosts from "../models/TipoPosts.js";
 
 class TipoPostsController {
+  
   async GetAll(req, res) {
     const Lista = await TipoPosts.findAll();
     return res.status(200).json(Lista);

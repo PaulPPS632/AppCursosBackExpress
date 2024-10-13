@@ -18,6 +18,7 @@ class App {
     this.server.use('/Post', Routes.PostsRoutes);
     this.server.use('/ScreenPost', Routes.ScreenPostsRoutes);
     this.server.use('/SeccionPost', Routes.SeccionPostsRoutes);
+    this.server.use('/entidad', Routes.EntidadRoutes);
   }
 }
 

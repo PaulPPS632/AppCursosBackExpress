@@ -1,4 +1,6 @@
+// src/models/Posts.js:
 import { DataTypes, Model } from "sequelize";
+
 class Posts extends Model {
   static init(sequelize) {
     super.init(
@@ -40,6 +42,7 @@ class Posts extends Model {
     // Un Curso pertenece a un Usuario
     this.belongsTo(models.TipoPosts,{foreignKey:'TipoPostsId'});
     this.hasMany(models.ScreenPosts,{foreignKey:'PostsId'});
+    this.belongsTo(models.Entidad, { foreignKey: 'EntidadId' })
   }
 }
 
