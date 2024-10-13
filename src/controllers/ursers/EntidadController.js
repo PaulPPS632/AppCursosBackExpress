@@ -35,7 +35,7 @@ class EntidadController {
 
         const entidad = await Entidad.findOne({
             where: { id },
-            include: { model: Posts, attributes: ["id", "title", "description"] },
+            //include: { model: Posts, attributes: ["id", "title", "description"] },
         });
 
         if (entidad) {
@@ -138,7 +138,7 @@ class EntidadController {
         try {
         const entidadEncontrada = await Entidad.findOne({
             where: { email },
-            include: { model: Posts, attributes: ["id", "title", "description"] },
+            //include: { model: Posts, attributes: ["id", "title", "description"] },
         });
 
         if (!entidadEncontrada) {
@@ -162,7 +162,7 @@ class EntidadController {
             return res.status(400).json({ message: "Contraseña incorrecta" });
         }
         } catch (error) {
-        return res.status(500).json({ errorMessage: error.message });
+            return res.status(500).json({ errorMessage: error.message });
         }
     }
 

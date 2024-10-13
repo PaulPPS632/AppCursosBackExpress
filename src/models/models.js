@@ -6,6 +6,9 @@ import SeccionPosts from "./SeccionPosts.js";
 import TipoPosts from "./TipoPosts.js";
 import Entidad from "./users/Entidad.js";
 
+import { config } from"dotenv";
+config();
+
 const models = {
   TipoPosts: TipoPosts.init(sequelize),
   Posts: Posts.init(sequelize),

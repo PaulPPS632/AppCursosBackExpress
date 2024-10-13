@@ -6,7 +6,7 @@ import { Sequelize } from "sequelize";
 //     dialect: "mysql"
 // });
 
-export const sequelize = new Sequelize("app_cursos_v1","root", "",{
+export const sequelize = new Sequelize("cursos_app_v1","root", "",{
     host: "localhost",
     port: "3306",
     dialect: "mysql"

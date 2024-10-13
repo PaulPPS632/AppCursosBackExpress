@@ -3,6 +3,7 @@ import ScreenPosts from "../models/ScreenPosts.js";
 import TipoPosts from "../models/TipoPosts.js";
 import uploadImage from "./uploadimage.js";
 import { paginate } from "./paginate.js";
+
 class PostsController {
   async GetAll(req, res) {
     const Lista = await Posts.findAll();

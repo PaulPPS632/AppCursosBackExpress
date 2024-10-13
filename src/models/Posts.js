@@ -42,7 +42,6 @@ class Posts extends Model {
     // Un Curso pertenece a un Usuario
     this.belongsTo(models.TipoPosts,{foreignKey:'TipoPostsId'});
     this.hasMany(models.ScreenPosts,{foreignKey:'PostsId'});
-    this.belongsTo(models.Entidad, { foreignKey: 'EntidadId' })
   }
 }
 
