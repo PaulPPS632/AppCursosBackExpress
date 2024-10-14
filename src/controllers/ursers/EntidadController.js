@@ -14,7 +14,6 @@ class EntidadController {
             id: entidad.id,
             nombre: entidad.nombre,
             apellido: entidad.apellido,
-            documento: entidad.documento,
             email: entidad.email,
             posts: entidad.posts.map(post => ({
             id: post.id,
@@ -49,15 +48,12 @@ class EntidadController {
 
     async create(req, res) {
         try {
-          const { nombre, apellido, documento, direccion, telefono, email, password } = req.body;
+          const { nombre, apellido, direccion, telefono, email, password } = req.body;
     
           // Validación de entrada
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           if (!emailRegex.test(email)) {
             return res.status(400).json({ message: "Formato de email inválido" });
-          }
-          if (!documento) {
-            return res.status(400).json({ message: "Se requiere un documento" });
           }
           if (!nombre) {
             return res.status(400).json({ message: "Se requiere un nombre" });
@@ -67,16 +63,15 @@ class EntidadController {
           }
     
           // Verificar si la entidad ya existe
-          const entidadExiste = await Entidad.findOne({ where: { documento } });
-          if (entidadExiste) {
-            return res.status(400).json({ message: "Entidad ya existe" });
-          }
+        //   const entidadExiste = await Entidad.findOne({ where: { documento } });
+        //   if (entidadExiste) {
+        //     return res.status(400).json({ message: "Entidad ya existe" });
+        //   }
     
           // Crear nueva entidad
           const entidad = await Entidad.create({
             nombre,
             apellido,
-            documento,
             direccion,
             telefono,
             email,
@@ -101,7 +96,7 @@ class EntidadController {
     async update(req, res) {
         try {
             const { id } = req.params;
-            const { nombre, apellido, documento, direccion, telefono, email, password } = req.body;
+            const { nombre, apellido, direccion, telefono, email, password } = req.body;
     
             const entidad = await Entidad.findByPk(id);
             if (!entidad) {
@@ -118,7 +113,7 @@ class EntidadController {
     
             entidad.nombre = nombre || entidad.nombre;
             entidad.apellido = apellido || entidad.apellido;
-            entidad.documento = documento || entidad.documento;
+            // entidad.documento = documento || entidad.documento;
             entidad.direccion = direccion || entidad.direccion;
             entidad.telefono = telefono || entidad.telefono;
             entidad.email = email || entidad.email;

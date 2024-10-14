@@ -14,7 +14,7 @@ class Entidad extends Model {
         },
         nombre: DataTypes.STRING,
         apellido: DataTypes.STRING,
-        documento: DataTypes.STRING,
+        // documento: DataTypes.STRING,
         direccion: DataTypes.STRING,
         telefono: DataTypes.STRING,
         email: {
