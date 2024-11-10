@@ -22,30 +22,15 @@ class Entidad extends Model {
           unique: true,
           allowNull: true,
         },
-        password: {
+        localId: {
           type: DataTypes.STRING,
           allowNull: true,
-        },
-        verifiedWebsite: DataTypes.BOOLEAN,
+        }
       },
       {
         sequelize,
         timestamps: false,
         tableName: "Entidad",
-        hooks: {
-          beforeCreate: async (Entidad) => {
-            if (Entidad.password) {
-              const salt = await bcrypt.genSalt(10);
-              Entidad.password = await bcrypt.hash(Entidad.password, salt);
-            }
-          },
-          beforeUpdate: async (Entidad) => {
-            if (Entidad.changed("password") && Entidad.password) {
-              const salt = await bcrypt.genSalt(10);
-              Entidad.password = await bcrypt.hash(Entidad.password, salt);
-            }
-          },
-        },
       }
     );
 
@@ -62,11 +47,6 @@ class Entidad extends Model {
       as: "entidad",
     });
   }
-
-  static async comparePassword(password, hashPassword) {
-    return await bcrypt.compare(password, hashPassword);
-  }
-
 }
 
 export default Entidad;

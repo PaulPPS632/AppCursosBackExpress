@@ -33,7 +33,7 @@ class EntidadController {
         if (!id) return res.status(400).json({ message: "ID no proporcionado" });
 
         const entidad = await Entidad.findOne({
-            where: { id },
+            where: { localId: id },
             //include: { model: Posts, attributes: ["id", "title", "description"] },
         });
 
@@ -48,7 +48,7 @@ class EntidadController {
 
     async create(req, res) {
         try {
-          const { nombre, apellido, direccion, telefono, email, password } = req.body;
+          const { nombre, apellido, direccion, telefono, email, localId } = req.body;
     
           // Validación de entrada
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -75,17 +75,10 @@ class EntidadController {
             direccion,
             telefono,
             email,
-            password,
-            verifiedWebsite: true,
+            localId,
           });
-    
-          const token = jwt.sign({ id: entidad.id }, process.env.SECRET_KEY, {
-            expiresIn: 86400,
-          });
-    
           return res.status(201).json({
             message: "Entidad creada exitosamente",
-            token,
             entidad,
           });
         } catch (error) {
